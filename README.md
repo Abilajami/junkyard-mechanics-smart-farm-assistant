@@ -1,7 +1,27 @@
-# Junkyard Mechanics Smart Farm Assistant
+# README: Run & Build Instructions
 
-This repository is the implementation of the Junkyard Mechanics Smart Farm Assistant — a local planning and tracking desktop application for players of the Roblox game "Junk Mechanics".
+## Requirements
+- Python 3.12+
+- pip
 
-This project intentionally does NOT automate gameplay or interact with the Roblox client. All game data must be entered or verified manually.
+## Install
+1. Create virtualenv:
+   python -m venv .venv
+   source .venv/bin/activate  # or .venv\Scripts\activate on Windows
+2. Install dependencies:
+   pip install -r requirements.txt
 
-See src/ for the application source.
+## Run (development)
+python -m src.main
+
+## Tests
+pytest -q
+
+## Build Windows executable (PyInstaller)
+1. Install pyinstaller: pip install pyinstaller
+2. Build: pyinstaller --onefile --windowed -n JunkyardAssistant src/main.py
+3. The exe will be in dist/ on success.
+
+
+## Notes
+- This application intentionally does not automate the Roblox client. All in-game actions must be performed by the player and recorded in the app.

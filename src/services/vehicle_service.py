@@ -1,8 +1,10 @@
-from pydantic import BaseModel
+from dataclasses import dataclass
 from typing import Optional
 from datetime import datetime
 
-class VehicleCreate(BaseModel):
+@dataclass
+class VehicleDTO:
+    id: Optional[int]
     name: str
     tier: Optional[str]
     category: Optional[str]
@@ -16,23 +18,18 @@ class VehicleCreate(BaseModel):
     last_verified: Optional[datetime]
     notes: Optional[str]
 
-class VehicleRead(VehicleCreate):
-    id: int
-
 
 class VehicleService:
     def __init__(self, repo):
         self.repo = repo
 
-    def create_vehicle(self, data: VehicleCreate):
-        kwargs = data.dict()
-        if kwargs.get('last_verified') is None:
-            kwargs['last_verified'] = None
-        v = self.repo.add_vehicle(**kwargs)
-        return v
+    def create(self, dto: VehicleDTO):
+        kwargs = dto.__dict__.copy()
+        kwargs.pop('id', None)
+        return self.repo.add_vehicle(**kwargs)
+
+    def list(self):
+        return self.repo.list_vehicles()
 
     def find_by_name(self, name: str):
         return self.repo.get_vehicle_by_name(name)
-
-    def list_all(self):
-        return self.repo.list_vehicles()

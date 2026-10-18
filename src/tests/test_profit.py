@@ -5,6 +5,7 @@ from sqlalchemy.orm import sessionmaker
 from src.database.models import Base, Vehicle
 from src.services.availability_service import AvailabilityService
 from src.services.purchase_service import PurchaseService
+from src.services.profit_calculator import ProfitCalculator
 from src.services.farm_optimizer import filter_accessible, estimate_profit
 
 
